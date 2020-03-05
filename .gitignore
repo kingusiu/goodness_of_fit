@@ -1,0 +1,8 @@
+fig/
+.ipynb*
+ __pycache__/
+*.pyc
+cut_models/
+data/
+logs/
+combine/
