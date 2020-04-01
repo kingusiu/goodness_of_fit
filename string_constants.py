@@ -7,33 +7,35 @@ import os
 
 input_dir = '/eos/project/d/dshep/TOPCLASS/DijetAnomaly'
 result_dir = '/eos/project/d/dshep/TOPCLASS/DijetAnomaly/VAE_results/pt_normalized/training_without_pt_cut'
-concat_subdir = os.path.join(result_dir,'concatenated_results')
+concat_result_dir = os.path.join(result_dir,'concatenated_results')
+concat_result_suffix = '_mjj_cut_result_concat.h5'
 
 sample_loc = { 'qcdSide': 'qcd_sqrtshatTeV_13TeV_PU40_SIDEBAND',
-                'qcdSig': 'qcd_sqrtshatTeV_13TeV_PU40',
-              'qcdSigExt':'qcd_sqrtshatTeV_13TeV_PU40_EXT',
-              'qcdSigExt2': 'qcd_sqrtshatTeV_13TeV_PU40_EXT2',
-              'qcdSigExt3': 'qcd_sqrtshatTeV_13TeV_PU40_EXT3',
-              'qcdSigExt4': 'qcd_sqrtshatTeV_13TeV_PU40_EXT4',
-              'qcdSigExt5': 'qcd_sqrtshatTeV_13TeV_PU40_EXT5',
-              'qcdSigExtAll': 'qcd_sqrtshatTeV_13TeV_PU40_EXT_ALL',  #_ALL # _ext + _ext2
-              'GtoWW15na': 'RSGraviton_WW_NARROW_13TeV_PU40_1.5TeV',
-              'GtoWW20na': 'RSGraviton_WW_NARROW_13TeV_PU40_2.0TeV',
-              'GtoWW25na': 'RSGraviton_WW_NARROW_13TeV_PU40_2.5TeV',
-              'GtoWW30na': 'RSGraviton_WW_NARROW_13TeV_PU40_3.0TeV',
-              'GtoWW35na': 'RSGraviton_WW_NARROW_13TeV_PU40_3.5TeV',
-              'GtoWW40na': 'RSGraviton_WW_NARROW_13TeV_PU40_4.0TeV',
-              'GtoWW45na': 'RSGraviton_WW_NARROW_13TeV_PU40_4.5TeV',
-              'GtoWW15br': 'RSGraviton_WW_BROAD_13TeV_PU40_1.5TeV',
-              'GtoWW20br': 'RSGraviton_WW_BROAD_13TeV_PU40_2.0TeV',
-              'GtoWW25br': 'RSGraviton_WW_BROAD_13TeV_PU40_2.5TeV',
-              'GtoWW30br': 'RSGraviton_WW_BROAD_13TeV_PU40_3.0TeV',
-              'GtoWW35br': 'RSGraviton_WW_BROAD_13TeV_PU40_3.5TeV',
-              'GtoWW40br': 'RSGraviton_WW_BROAD_13TeV_PU40_4.0TeV',
-              'GtoWW45br': 'RSGraviton_WW_BROAD_13TeV_PU40_4.5TeV',
-              'AtoHZ': 'AtoHZ_to_ZZZ_13TeV_PU40',
-              'GtoTTBroad': 'RSGraviton_tt_BROAD_13TeV_PU40',
-              'GtoTTNarr': 'RSGraviton_tt_NARROW_13TeV_PU40'
+               'qcdSig': 'qcd_sqrtshatTeV_13TeV_PU40',
+               'qcdSigBis': 'qcd_sqrtshatTeV_13TeV_PU40_BIS',
+               'qcdSigExt':'qcd_sqrtshatTeV_13TeV_PU40_EXT',
+               'qcdSigExt2': 'qcd_sqrtshatTeV_13TeV_PU40_EXT2',
+               'qcdSigExt3': 'qcd_sqrtshatTeV_13TeV_PU40_EXT3',
+               'qcdSigExt4': 'qcd_sqrtshatTeV_13TeV_PU40_EXT4',
+               'qcdSigExt5': 'qcd_sqrtshatTeV_13TeV_PU40_EXT5',
+               'qcdSigExtAll': 'qcd_sqrtshatTeV_13TeV_PU40_EXT_ALL',  #_ALL # _ext + _ext2
+               'GtoWW15na': 'RSGraviton_WW_NARROW_13TeV_PU40_1.5TeV',
+               'GtoWW20na': 'RSGraviton_WW_NARROW_13TeV_PU40_2.0TeV',
+               'GtoWW25na': 'RSGraviton_WW_NARROW_13TeV_PU40_2.5TeV',
+               'GtoWW30na': 'RSGraviton_WW_NARROW_13TeV_PU40_3.0TeV',
+               'GtoWW35na': 'RSGraviton_WW_NARROW_13TeV_PU40_3.5TeV',
+               'GtoWW40na': 'RSGraviton_WW_NARROW_13TeV_PU40_4.0TeV',
+               'GtoWW45na': 'RSGraviton_WW_NARROW_13TeV_PU40_4.5TeV',
+               'GtoWW15br': 'RSGraviton_WW_BROAD_13TeV_PU40_1.5TeV',
+               'GtoWW20br': 'RSGraviton_WW_BROAD_13TeV_PU40_2.0TeV',
+               'GtoWW25br': 'RSGraviton_WW_BROAD_13TeV_PU40_2.5TeV',
+               'GtoWW30br': 'RSGraviton_WW_BROAD_13TeV_PU40_3.0TeV',
+               'GtoWW35br': 'RSGraviton_WW_BROAD_13TeV_PU40_3.5TeV',
+               'GtoWW40br': 'RSGraviton_WW_BROAD_13TeV_PU40_4.0TeV',
+               'GtoWW45br': 'RSGraviton_WW_BROAD_13TeV_PU40_4.5TeV',
+               'AtoHZ': 'AtoHZ_to_ZZZ_13TeV_PU40',
+               'GtoTTBroad': 'RSGraviton_tt_BROAD_13TeV_PU40',
+               'GtoTTNarr': 'RSGraviton_tt_NARROW_13TeV_PU40'
              }
 
 sample_concat_loc = { 'qcdSig': 'qcd_sqrtshatTeV_13TeV_PU40_mjj_cut_1100GeV_concat.h5',
@@ -56,6 +58,7 @@ sample_concat_loc = { 'qcdSig': 'qcd_sqrtshatTeV_13TeV_PU40_mjj_cut_1100GeV_conc
 
 sample_label = {'qcdSide' : r'QCD side',
                 'qcdSig':r'QCD signal',
+                 'qcdSigBis': 'QCD signal bis',
              'qcdSigExt':r'QCD signal ext',
              'qcdSigExt2':r'QCD signal ext2',
              'qcdSigExt3':r'QCD signal ext3',
@@ -83,6 +86,7 @@ sample_label = {'qcdSide' : r'QCD side',
 
 plt_name = {'qcdSide' : r'qcd_side',
              'qcdSig':'qcd_signal',
+            'qcdSigBis': 'QCD_signal_bis',
              'qcdSigExt': 'qcd_signal_ext',
              'qcdSigExt2': 'qcd_signal_ext2',
              'qcdSigExt3': 'qcd_signal_ext3',

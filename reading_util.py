@@ -15,6 +15,8 @@ pt_j1_cut = 1000
 # *****************************************
 #    main reading functions
 
+# result data
+
 def read_results( input_path ):
     if os.path.isfile( input_path ):
         return read_data_from_file( input_path, 'results','labels' )
@@ -26,6 +28,7 @@ def read_results_to_recarray( input_path ):
     data, labels = read_results( input_path )
     return [ data_to_recarray( data, labels ), labels ]
 
+# input data: only dijet features
 
 def read_dijet_features( input_path ):
     if os.path.isfile( input_path ):
@@ -38,6 +41,7 @@ def read_dijet_features_to_recarray( input_path ):
     data, labels = read_dijet_features( input_path )
     return [ data_to_recarray( data, labels ), labels ]
 
+# input data: particles and dijet features
 
 def read_inputs( input_path ):
     if os.path.isfile( input_path ):
@@ -50,8 +54,13 @@ def read_inputs( input_path ):
 #    auxiliary functions
 
 def data_to_recarray( data, labels ):
-    dt = [(s.decode("utf-8"), '<f4') for s in labels]
+    #dt = [(s.decode("utf-8"), '<f4') for s in labels]
+    dt = [(str(s), '<f4') for s in labels]
     return np.array(list(zip(*data.T)), dtype=dt)
+
+
+def recarray_to_data( arr ):
+    return arr.view((arr.dtype[0],len(arr.dtype.names)))
     
 
 def read_data_from_file( file_path, *keys ):
@@ -102,7 +111,7 @@ def read_data_from_dir( dir_path, datakey, labelkey ):
 
 def read_dijet_events_and_features_from_dir( dir_path ):
     print('reading', dir_path)
-    maxEvts = int(3e6)
+    maxEvts = int(1.2e6)
     pb = ProgressBar(maxEvts)
 
     constituents_concat = []
@@ -128,7 +137,7 @@ def read_dijet_events_and_features_from_dir( dir_path ):
     evt_feature_names, = read_data_from_file( fname, 'eventFeatureNames' )
     
     print('\nnum files read in dir ', dir_path, ': ', i_file+1)
-    return [ np.asarray(constituents_concat), particle_feature_names, np.asarray(features_concat), evt_feature_names ] 
+    return [ constituents_concat, particle_feature_names, features_concat, evt_feature_names ] 
 
 
 def read_dijet_events_and_features_from_file( input_file ):
