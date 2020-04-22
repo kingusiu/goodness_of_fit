@@ -25,7 +25,7 @@ for sample in all_samples:
 
 
     print('read',len(results),'results. writing to concat file')
-    out_path = os.path.join( sc.concat_result_dir, sc.sample_loc[sample] + '_mjj_cut_result_concat.h5') 
+    out_path = os.path.join( sc.concat_result_dir, sc.sample_loc[sample] + sc.concat_result_suffix ) 
     dataset_names = ['results','labels']
     wu.write_data_to_file( [results, labels], dataset_names, out_path )
 

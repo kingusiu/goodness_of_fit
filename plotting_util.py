@@ -33,15 +33,17 @@ def plot_hist_on_axis( ax, data, bins, xlabel, ylabel, title, legend=[], ylogsca
     return [counts, edges]
     
 
-def plot_hist_2d( x, y, xlabel, ylabel, title, plot_name='plot', fig_dir=None):
+def plot_hist_2d( x, y, xlabel='x', ylabel='y', title='2d hist', plot_name='plot', fig_dir=None):
     fig = plt.figure()
-    im = plot_hist_2d_on_axis( plt.gca(), x, y, xlabel, ylabel, title )
+    ax = plt.gca()
+    im = plot_hist_2d_on_axis( ax, x, y, xlabel, ylabel, title )
     fig.colorbar(im[3])
     plt.tight_layout()
     if fig_dir:
         plt.savefig(os.path.join(fig_dir,plot_name+'_hist2d.png'))
     plt.show()
-    plt.close()
+    #plt.close()
+    return ax
     
     
 def plot_hist_2d_on_axis( ax, x, y, xlabel, ylabel, title ):
@@ -52,7 +54,7 @@ def plot_hist_2d_on_axis( ax, x, y, xlabel, ylabel, title ):
     return im
 
     
-def plot_step( x, ys, labels, xlabel, title, ylim=None, ylog=True):
+def plot_step( x, ys, labels='dat', xlabel='x', title='title', ylim=None, ylog=True):
     plt.figure()
     for y, label in zip(ys,labels):
         plt.step(x,y,label=label)
@@ -68,6 +70,7 @@ def plot_step( x, ys, labels, xlabel, title, ylim=None, ylog=True):
     
     
 def plot_counting_hist( data, bins=7, xlabel='x', ylabel='count', title='hist', plot_name='plot', fig_dir=None ):
+    """ plot histogram with bin count values displayed above bins """
     plt.figure()
     bin_counts, bin_edges, _ = plt.hist( data, bins=bins, alpha=0.7, facecolor='g' )
     for i, n, in zip(bin_edges,bin_counts):

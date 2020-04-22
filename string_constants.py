@@ -13,12 +13,12 @@ concat_result_suffix = '_mjj_cut_result_concat.h5'
 sample_loc = { 'qcdSide': 'qcd_sqrtshatTeV_13TeV_PU40_SIDEBAND',
                'qcdSig': 'qcd_sqrtshatTeV_13TeV_PU40',
                'qcdSigBis': 'qcd_sqrtshatTeV_13TeV_PU40_BIS',
+               'qcdSigAll': 'qcd_sqrtshatTeV_13TeV_PU40_ALL', # qcdSig + qcdSigBis
                'qcdSigExt':'qcd_sqrtshatTeV_13TeV_PU40_EXT',
                'qcdSigExt2': 'qcd_sqrtshatTeV_13TeV_PU40_EXT2',
                'qcdSigExt3': 'qcd_sqrtshatTeV_13TeV_PU40_EXT3',
                'qcdSigExt4': 'qcd_sqrtshatTeV_13TeV_PU40_EXT4',
                'qcdSigExt5': 'qcd_sqrtshatTeV_13TeV_PU40_EXT5',
-               'qcdSigExtAll': 'qcd_sqrtshatTeV_13TeV_PU40_EXT_ALL',  #_ALL # _ext + _ext2
                'GtoWW15na': 'RSGraviton_WW_NARROW_13TeV_PU40_1.5TeV',
                'GtoWW20na': 'RSGraviton_WW_NARROW_13TeV_PU40_2.0TeV',
                'GtoWW25na': 'RSGraviton_WW_NARROW_13TeV_PU40_2.5TeV',
@@ -36,23 +36,6 @@ sample_loc = { 'qcdSide': 'qcd_sqrtshatTeV_13TeV_PU40_SIDEBAND',
                'AtoHZ': 'AtoHZ_to_ZZZ_13TeV_PU40',
                'GtoTTBroad': 'RSGraviton_tt_BROAD_13TeV_PU40',
                'GtoTTNarr': 'RSGraviton_tt_NARROW_13TeV_PU40'
-             }
-
-sample_concat_loc = { 'qcdSig': 'qcd_sqrtshatTeV_13TeV_PU40_mjj_cut_1100GeV_concat.h5',
-              'qcdSigExt':'qcd_sqrtshatTeV_13TeV_PU40_EXT_mjj_cut_1100GeV_concat.h5',
-              'qcdSigExt2': 'qcd_sqrtshatTeV_13TeV_PU40_EXT2_mjj_cut_1100GeV_concat.h5',
-              'qcdSigExt3': 'qcd_sqrtshatTeV_13TeV_PU40_EXT3_mjj_cut_1100GeV_concat.h5',
-              'qcdSigExt4': 'qcd_sqrtshatTeV_13TeV_PU40_EXT4_mjj_cut_1100GeV_concat.h5',
-              'qcdSigExt5': 'qcd_sqrtshatTeV_13TeV_PU40_EXT5_mjj_cut_1100GeV_concat.h5',
-              #'qcdSigExtAll': 'qcd_sqrtshatTeV_13TeV_PU40_EXT_ALL',  #_ALL # _ext + _ext2
-              'qcdSigAll': 'qcd_sqrtshatTeV_13TeV_PU40_SIGNALREGION_ALL_mjj_cut_1100GeV_concat.h5',
-              'GtoWW1': 'RSGraviton_WW_NARROW_13TeV_PU40_1.5TeV_mjj_cut_1100GeV_concat.h5',
-              'GtoWW2': 'RSGraviton_WW_NARROW_13TeV_PU40_2.5TeV_mjj_cut_1100GeV_concat.h5',
-              'GtoWW3': 'RSGraviton_WW_NARROW_13TeV_PU40_3.5TeV_mjj_cut_1100GeV_concat.h5',
-              'GtoWW4': 'RSGraviton_WW_NARROW_13TeV_PU40_4.5TeV_mjj_cut_1100GeV_concat.h5',
-              'AtoHZ': 'AtoHZ_to_ZZZ_13TeV_PU40_mjj_cut_1100GeV_concat.h5',
-              'GtoTTBroad': 'RSGraviton_tt_BROAD_13TeV_PU40_mjj_cut_1100GeV_concat.h5',
-              'GtoTTNarr': 'RSGraviton_tt_NARROW_13TeV_PU40_mjj_cut_1100GeV_concat.h5'
              }
 
 

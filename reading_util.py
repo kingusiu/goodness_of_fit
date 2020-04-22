@@ -1,5 +1,6 @@
 # std lib imports
 import numpy as np
+import pandas as pd
 import h5py
 import os
 import sys
@@ -27,6 +28,11 @@ def read_results( input_path ):
 def read_results_to_recarray( input_path ):
     data, labels = read_results( input_path )
     return [ data_to_recarray( data, labels ), labels ]
+
+
+def read_results_to_dataframe( input_path ):
+    data, labels = read_results( input_path )
+    return pd.DataFrame(data,columns=labels)
 
 # input data: only dijet features
 
