@@ -1,4 +1,6 @@
 import writing_util as wu
+import reading_util as ru
+import string_constants as sc
 
 """ module containing wrapper for a data sample """
 
@@ -19,5 +21,21 @@ class DataSample( ):
         self.data[ label ] = values
         
     def dump( self, path ):
-        wu.write_results_array_to_file( self.data.to_numpy(), list(self.data.columns), path )
+        dump_data = self.data
+        if 'sel' in self.data: # convert selection column to int for writing
+            dump_data = self.data.copy()
+            dump_data['sel'] = dump_data['sel'].astype(int)
+        wu.write_results_array_to_file( dump_data.values, list(dump_data.columns), path )
         
+    def title( self ):
+        return sc.sample_label[self.name]
+    
+    def plot_name( self ):
+        return sc.plt_name[self.name]
+        
+
+def read_datasample_from_file( sample_name, input_path ):
+    df = ru.read_results_to_dataframe( input_path )
+    if 'sel' in df: # convert selection column to bool
+        df['sel'] = df['sel'].astype(bool)
+    return DataSample( sample_name, df )

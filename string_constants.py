@@ -10,6 +10,9 @@ result_dir = '/eos/project/d/dshep/TOPCLASS/DijetAnomaly/VAE_results/pt_normaliz
 concat_result_dir = os.path.join(result_dir,'concatenated_results')
 concat_result_suffix = '_mjj_cut_result_concat.h5'
 
+vae_boost_dir = '/eos/project/d/dshep/TOPCLASS/DijetAnomaly/VAE_boost'
+
+
 sample_loc = { 'qcdSide': 'qcd_sqrtshatTeV_13TeV_PU40_SIDEBAND',
                'qcdSig': 'qcd_sqrtshatTeV_13TeV_PU40',
                'qcdSigBis': 'qcd_sqrtshatTeV_13TeV_PU40_BIS',
@@ -42,6 +45,7 @@ sample_loc = { 'qcdSide': 'qcd_sqrtshatTeV_13TeV_PU40_SIDEBAND',
 sample_label = {'qcdSide' : r'QCD side',
                 'qcdSig':r'QCD signal',
                  'qcdSigBis': 'QCD signal bis',
+                'qcdSigAll': 'QCD signal all',
              'qcdSigExt':r'QCD signal ext',
              'qcdSigExt2':r'QCD signal ext2',
              'qcdSigExt3':r'QCD signal ext3',
@@ -70,6 +74,7 @@ sample_label = {'qcdSide' : r'QCD side',
 plt_name = {'qcdSide' : r'qcd_side',
              'qcdSig':'qcd_signal',
             'qcdSigBis': 'QCD_signal_bis',
+            'qcdSigAll': 'QCD_signal_all',
              'qcdSigExt': 'qcd_signal_ext',
              'qcdSigExt2': 'qcd_signal_ext2',
              'qcdSigExt3': 'qcd_signal_ext3',

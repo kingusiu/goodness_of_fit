@@ -8,6 +8,8 @@ from glob import glob
 
 # custom imports
 from progressBar import ProgressBar
+import data_sample as ds
+
 
 # constants
 Mjj_cut = 1100
@@ -33,6 +35,7 @@ def read_results_to_recarray( input_path ):
 def read_results_to_dataframe( input_path ):
     data, labels = read_results( input_path )
     return pd.DataFrame(data,columns=labels)
+    
 
 # input data: only dijet features
 
@@ -88,7 +91,7 @@ def get_file_list( dir_path ):
 
 
 # reading routine
-def read_data_from_dir( dir_path, datakey, labelkey ):
+def read_data_from_dir( dir_path, datakey, labelkey, mjj_cut=True ):
     print('reading', dir_path)
     maxEvts = int(1e9)
     pb = ProgressBar(maxEvts)
@@ -102,13 +105,19 @@ def read_data_from_dir( dir_path, datakey, labelkey ):
     for i_file, fname in enumerate(flist):
         try:
             results, = read_data_from_file( fname, datakey )
-            results = results[results[:,0] > Mjj_cut]
+            if mjj_cut:
+                results = results[results[:,0] > Mjj_cut]
             data.extend(results)
             pb.show(len(data))
         except Exception as e:
             print("\nCould not read file ", fname, ': ', repr(e))
             
-    labels, = read_data_from_file( fname, labelkey )
+    for i_file, fname in enumerate(flist):
+        try:
+            labels, = read_data_from_file( fname, labelkey )
+            break
+        except Exception as e:
+            print("\nCould not read file ", fname, ': ', repr(e))
     print('Labels:', labels)
 
     print('\nnum files read in dir ', dir_path, ': ', i_file+1)

@@ -1,13 +1,15 @@
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 import numpy as np
 
 import quantile_regression_dnn as qr
 import flat_cut as fc
 
 
-class Selector( ABC ):
+class Selector( ):
+    
+    __metaclass__ = ABCMeta
    
-    def __init__( quantile ):
+    def __init__( self, quantile ):
         self.quantile = quantile
         
     @abstractmethod
@@ -17,11 +19,12 @@ class Selector( ABC ):
     @abstractmethod
     def select_events( self, *args ):
         pass
-
+    
 
 class QuantileRegressionSelector( Selector ):
     
-    def fit( self, x, y ):
+    def fit( self, *args ):
+        x, y = args
         self.model = qr.Quantile_Regression( self.quantile )
         self.model.fit( x, y )
         
@@ -49,9 +52,25 @@ class QuantileRegressionOverflowBinSelector( Selector ):
 class FlatCutSelector( Selector ):
     
     def fit( self, *args ):
+        _, y = args
         self.model = fc.FlatCut( self.quantile )
-        self.model.fit( *args )
+        self.model.fit( y )
         
     def select_events( self, *args ):
-        return self.model.select_events( *args )
+        _, y = args
+        return self.model.select_events( y )
+
     
+    #### utility functions ####
+
+def split_by_selection( boosted_sample ):
+    accepted = boosted_sample[ boosted_sample['sel'] ]
+    rejected = boosted_sample[ ~boosted_sample['sel'] ]
+    return ( accepted, rejected )
+    
+def get_bin_counts_total_acc_rej( boosted_sample, bin_edges ):
+    accepted, rejected = split_by_selection( boosted_sample )
+    tot_count, _ = np.histogram( boosted_sample['mJJ'], bins=bin_edges )
+    acc_count, _ = np.histogram( accepted['mJJ'], bins=bin_edges )
+    rej_count, _ = np.histogram( rejected['mJJ'], bins=bin_edges ) 
+    return [tot_count, acc_count, rej_count]    

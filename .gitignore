@@ -2,6 +2,10 @@ fig/
 .ipynb*
  __pycache__/
 *.pyc
+*.root
+*.h5
+*.txt
+*.out
 cut_models/
 data/
 logs/
