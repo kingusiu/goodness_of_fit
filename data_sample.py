@@ -20,6 +20,18 @@ class DataSample( ):
     def add_feature( self, label, values ):
         self.data[ label ] = values
         
+    def accepted( self, feature=None ):
+        if 'sel' not in self.data:
+            print('selection not available for this data sample')
+            return
+        return self.data[self.data['sel']][feature] if feature else self.data[self.data['sel']]
+        
+    def rejected( self, feature=None ):
+        if 'sel' not in self.data:
+            print('selection not performed for this data sample')
+            return
+        return self.data[~self.data['sel']][feature] if feature else self.data[~self.data['sel']]
+    
     def dump( self, path ):
         dump_data = self.data
         if 'sel' in self.data: # convert selection column to int for writing

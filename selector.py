@@ -12,6 +12,12 @@ class Selector( ):
     def __init__( self, quantile ):
         self.quantile = quantile
         
+    def save( self, path ):
+        self.model.save( path )
+        
+    def load( self, path ):
+        self.model.load_model( path )
+        
     @abstractmethod
     def fit( self, *args ):
         pass
@@ -49,6 +55,7 @@ class QuantileRegressionOverflowBinSelector( Selector ):
         return self.model.select_events_regression_cut( x, y, self.max_acc )
     
     
+    
 class FlatCutSelector( Selector ):
     
     def fit( self, *args ):
@@ -59,6 +66,13 @@ class FlatCutSelector( Selector ):
     def select_events( self, *args ):
         _, y = args
         return self.model.select_events( y )
+    
+    def save( self, path ):
+        pass
+        # todo: write cut value to file? (overkill)
+        
+    def load( self, path ):
+        self.model.load_model( path )
 
     
     #### utility functions ####

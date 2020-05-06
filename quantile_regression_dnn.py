@@ -1,4 +1,4 @@
-from keras.models import Model
+from keras.models import Model, load_model
 from keras.layers import Input, Activation, Dense
 from keras.callbacks import EarlyStopping
 from keras import backend as K
@@ -42,7 +42,7 @@ class Quantile_Regression( ):
 
     def fit( self, x, y ):
         xx = np.reshape( self.scaleDownMjj(x), (-1,1) )
-        self.model.fit( xx, y, epochs=100, batch_size=300, verbose=0, validation_split=0.2, shuffle=True, \
+        self.model.fit( xx, y, epochs=100, batch_size=200, verbose=0, validation_split=0.2, shuffle=True, \
             callbacks=[EarlyStopping(monitor='val_loss', patience=10, verbose=1),ReduceLROnPlateau(factor=0.2, patience=3, verbose=1)])
         
 
@@ -63,3 +63,10 @@ class Quantile_Regression( ):
     def select_events_regression_cut( self, mjj, loss, max_accepted_mjj ):
         cut = self.predict( np.minimum(mjj,max_accepted_mjj) ) # cut values at max qcd accepted mjj
         return loss > cut.flatten()
+
+    
+    def save( self, path ):
+        self.model.save( path )
+        
+    def load( self, path ):
+        self.model = load_model( path )
