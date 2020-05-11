@@ -41,7 +41,7 @@ class Quantile_Regression( ):
 
     def fit( self, x, y ):
         xx = np.reshape( self.scaleDownMjj(x), (-1,1) )
-        self.model.fit( xx, y, epochs=100, batch_size=200, verbose=0, validation_split=0.2, shuffle=True, \
+        self.model.fit( xx, y, epochs=100, batch_size=128, verbose=0, validation_split=0.2, shuffle=True, \
             callbacks=[EarlyStopping(monitor='val_loss', patience=10, verbose=1),ReduceLROnPlateau(factor=0.2, patience=3, verbose=1)])
         
 

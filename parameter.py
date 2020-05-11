@@ -1,4 +1,6 @@
 import loss_strategy_fun as lof
+import selector as sel
+
 
 Mjj_selection = 1100.
 
@@ -19,6 +21,19 @@ class LossStrategy( Parameter ):
     
     def __call__( self, x ):
         return self.val( x )
+
+    
+class Discriminator( Parameter ):
+    
+    def __call__( *args ):
+        return self.val( *args )
+
+
+discriminator_dict = { 'flat' : Discriminator( sel.FlatCutSelector, 'Flat Cut', 'flat_cut' ),
+                      'qr_over' : Discriminator( sel.QuantileRegressionOverflowBinSelector, 'QR overflow', 'QR_overflow'),
+                      'qr_full' : Discriminator( sel.QuantileRegressionSelector, 'QR full', 'QR_full'),
+                      'gbr' : Discriminator( sel.GradientBoostRegresssor, 'GBR', 'GBR' )
+                    }
 
     
 loss_strategy_dict = { 's1' : LossStrategy(lof.combine_loss_l1, 'L1 > LT', 'l1_loss'),

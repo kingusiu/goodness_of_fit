@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
+import sklearn.ensemble as scikit
 
 import quantile_regression_dnn as qr
 import flat_cut as fc
@@ -60,20 +61,35 @@ class FlatCutSelector( Selector ):
     
     def fit( self, *args ):
         _, y = args
-        self.model = fc.FlatCut( self.quantile )
-        self.model.fit( y )
+        self.cut = np.percentile( y, (1.-self.quantile)*100 )
         
     def select_events( self, *args ):
         _, y = args
-        return self.model.select_events( y )
+        return y > self.cut
     
     def save( self, path ):
-        pass
+        print('save not implemented for flat cut')
         # todo: write cut value to file? (overkill)
         
     def load( self, path ):
-        self.model.load_model( path )
-
+        print('load not implemented for flat cut')
+        # todo: read cut value from file?
+        
+        
+        
+class GradientBoostRegresssor( Selector ):
+    
+    def fit( self, args ):
+        x, y = args
+        self.model = scikit.GradientBoostingRegressor( loss='quantile', alpha=1-self.quantile, verbose=2 )
+        self.model.fit( x, y )
+        
+    def select_events(self, *args ):
+        x, y = args
+        cut = self.model.predict( x )
+        return y > cut.flatten()
+        
+        
     
     #### utility functions ####
 
