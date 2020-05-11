@@ -28,11 +28,10 @@ class Quantile_Regression( ):
     def build( self ):
 
         inputs = Input(shape=(1,))
-        hidden = Dense(100, activation='relu')(inputs)
-        hidden = Dense(100, activation='relu')(hidden)
-        hidden = Dense(100, activation='relu')(hidden)
-        hidden = Dense(100, activation='relu')(hidden)
-        hidden = Dense(100, activation='relu')(hidden)
+        hidden = Dense(50, activation='relu')(inputs)
+        hidden = Dense(50, activation='relu')(hidden)
+        hidden = Dense(50, activation='relu')(hidden)
+        hidden = Dense(50, activation='relu')(hidden)
         output = Dense(1)(hidden)
         model = Model(inputs, output)
         model.compile(loss=self.quantile_loss(), optimizer=Adam(lr=1e-4))
