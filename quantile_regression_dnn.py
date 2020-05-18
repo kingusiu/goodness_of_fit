@@ -69,3 +69,19 @@ class Quantile_Regression( ):
         
     def load( self, path ):
         self.model = load_model( path )
+        
+        
+class Quantile_Regression_Overflow_Bin( Quantile_Regression ):
+    
+    def regression_overflow_cut( self, x ):
+        return x if x < self.overflow_cut else self.overflow_cut
+    
+    def fit( self, x, y ):
+        super( Quantile_Regression_Overflow_Bin, self ).fit( x, y )
+         # get overflow bin (max accepted mjj) for regression cut
+        sel = self.model.select_events( x, y ) # get selection for qcd training set
+        self.max_acc = np.max(x[sel]) # get max mjj in accepted set
+        self.overflow_cut = self.model.predict( self.max_acc ) # get loss cut value at max mjj accepted
+        # add additional overflow layer
+        self.model.add( Dense(1,activation=self.regression_overflow_cut) )
+                                       
