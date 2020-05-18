@@ -45,18 +45,13 @@ class QuantileRegressionOverflowBinSelector( Selector ):
    
     def fit( self, *args ):
         x, y = args
-        self.model = qr.Quantile_Regression( self.quantile )
+        self.model = qr.Quantile_Regression_Overflow_Bin( self.quantile )
         self.model.fit( x, y )
-        # get overflow bin (max accepted mjj) for regression cut
-        sel = self.model.select_events( x, y ) # get selection for qcd training set
-        self.max_acc = np.max(x[sel]) # get max mjj in accepted set
-        
         
     def select_events( self, *args ):
         x, y = args
-        return self.model.select_events_regression_cut( x, y, self.max_acc )
-    
-    
+        return self.model.select_events( x, y )
+
     
 class FlatCutSelector( Selector ):
     

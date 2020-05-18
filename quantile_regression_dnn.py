@@ -47,22 +47,14 @@ class Quantile_Regression( ):
     def predict( self, mjj ):
         xx = np.reshape( self.scaleDownMjj(mjj), (-1,1) )
         return self.model.predict( xx )
-        
-        
+            
     def scaleDownMjj( self, x ):
         return x
         #return (x-2*self.Mjj_selection)/self.Mjj_scaling
     
-    
     def select_events( self, mjj, loss ):
         cut = self.predict( mjj )
         return loss > cut.flatten()
-    
-    
-    def select_events_regression_cut( self, mjj, loss, max_accepted_mjj ):
-        cut = self.predict( np.minimum(mjj,max_accepted_mjj) ) # cut values at max qcd accepted mjj
-        return loss > cut.flatten()
-
     
     def save( self, path ):
         self.model.save( path )
