@@ -28,10 +28,9 @@ class Quantile_Regression( ):
     def build( self ):
 
         inputs = Input(shape=(1,))
-        hidden = Dense(50, activation='relu')(inputs)
-        hidden = Dense(50, activation='relu')(hidden)
-        hidden = Dense(50, activation='relu')(hidden)
-        hidden = Dense(50, activation='relu')(hidden)
+        hidden = Dense(20, activation='relu')(inputs)
+        hidden = Dense(20, activation='relu')(hidden)
+        hidden = Dense(20, activation='relu')(hidden)
         output = Dense(1)(hidden)
         model = Model(inputs, output)
         model.compile(loss=self.quantile_loss(), optimizer=Adam(lr=1e-4))
@@ -51,7 +50,8 @@ class Quantile_Regression( ):
         
         
     def scaleDownMjj( self, x ):
-        return (x-2*self.Mjj_selection)/self.Mjj_scaling
+        return x
+        #return (x-2*self.Mjj_selection)/self.Mjj_scaling
     
     
     def select_events( self, mjj, loss ):
