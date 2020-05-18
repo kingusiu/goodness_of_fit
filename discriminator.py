@@ -1,3 +1,6 @@
+import selector as se
+
+
 class Discriminator():
     
     
@@ -10,7 +13,7 @@ class Discriminator():
     @classmethod
     def from_file( cls, path, quantile='q1', strategy='s5' ):
         o = cls( quantile, strategy, None )
-        o.load_selector( path )
+        o.load_selector( path, quantile )
         return o
         
         
@@ -26,8 +29,8 @@ class Discriminator():
         self.selector.save( path )
 
         
-    def load_selector( self, path ):
-        self.selector.load( path )
+    def load_selector( self, path, quantile ):
+        self.selector = Selector( quantile ).load( path )
 
         
     def boost_sample( self, sample ):
