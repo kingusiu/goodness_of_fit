@@ -2,14 +2,18 @@ import matplotlib.colors as colors
 from matplotlib.colors import LogNorm
 import h5py, os, sys, glob
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+from cycler import cycler
+mpl.rcParams['axes.prop_cycle'] = cycler(color='brgcmyk')
 
-def plot_hist( data, bins=100, xlabel='x', ylabel='num frac', title='histogram', plot_name='', fig_dir=None, legend=[], ylogscale=True, normed=True ):
-    fig = plt.figure( figsize=(7,5) )
-    counts, edges = plot_hist_on_axis( plt.gca(), data, bins, xlabel, ylabel, title, legend, ylogscale, normed )
+
+def plot_hist( data, bins=100, xlabel='x', ylabel='num frac', title='histogram', plot_name='', fig_dir=None, legend=[], ylogscale=True, normed=True, ylim=None ):
+    fig = plt.figure( figsize=(6,4) )
+    counts, edges = plot_hist_on_axis( plt.gca(), data, bins, xlabel, ylabel, title, legend, ylogscale, normed, ylim )
     plt.xticks(fontsize=14)
     if legend:
-        plt.legend(loc='best',prop={'size': 11})
+        plt.legend(loc='best',prop={'size': 13})
     plt.tight_layout()
     if fig_dir:
         fig.savefig(os.path.join( fig_dir, plot_name + '_hist.png'))
@@ -18,18 +22,19 @@ def plot_hist( data, bins=100, xlabel='x', ylabel='num frac', title='histogram',
     return [counts,edges]
 
 
-def plot_hist_on_axis( ax, data, bins, xlabel, ylabel, title, legend=[], ylogscale=True, normed=True ):
+def plot_hist_on_axis( ax, data, bins, xlabel, ylabel, title, legend=[], ylogscale=True, normed=True, ylim=None ):
     alpha = 1.0
     histtype = 'step'
     if ylogscale:
         ax.set_yscale('log', nonposy='clip')
         #ax.set_ylim(1,None)
     counts, edges, _ = ax.hist( data, bins=bins, normed=normed, alpha=alpha, histtype='step', linewidth=1.2, label=legend )
-    ax.set_ylabel( ylabel )
-    ax.set_xlabel( xlabel )
-    ax.set_title( title )
+    ax.set_ylabel( ylabel, fontsize=12 )
+    ax.set_xlabel( xlabel, fontsize=16 )
+    ax.set_title( title, fontsize=18 )
     #ax.tick_params(axis='both', which='minor', labelsize=5)
-    #ax.set_ylim(bottom=1e-7)
+    if ylim:
+        ax.set_ylim(ylim)
     return [counts, edges]
     
 

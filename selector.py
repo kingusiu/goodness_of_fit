@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
 import sklearn.ensemble as scikit
+import joblib as jl
 
 import quantile_regression_dnn as qr
 import flat_cut as fc
@@ -79,15 +80,23 @@ class FlatCutSelector( Selector ):
         
 class GradientBoostRegresssor( Selector ):
     
-    def fit( self, args ):
+    def fit( self, *args ):
         x, y = args
-        self.model = scikit.GradientBoostingRegressor( loss='quantile', alpha=1-self.quantile, verbose=2 )
+        x = x.reshape(-1,1)
+        self.model = scikit.GradientBoostingRegressor( loss='quantile', alpha=1-self.quantile, learning_rate=.01, max_depth=2, verbose=2 )
         self.model.fit( x, y )
         
     def select_events(self, *args ):
         x, y = args
+        x = x.reshape(-1,1)
         cut = self.model.predict( x )
         return y > cut.flatten()
+    
+    def save( self, path ):
+        jl.dump( self.model, path )
+        
+    def load( self, path ):
+        self.model = jl.load( path )
         
         
     

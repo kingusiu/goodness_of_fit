@@ -25,7 +25,7 @@ class LossStrategy( Parameter ):
     
 class Discriminator( Parameter ):
     
-    def __call__( *args ):
+    def __call__( self, *args ):
         return self.val( *args )
 
 
