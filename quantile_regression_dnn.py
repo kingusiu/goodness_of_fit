@@ -84,4 +84,7 @@ class Quantile_Regression_Overflow_Bin( Quantile_Regression ):
         self.overflow_cut = self.model.predict( self.max_acc ) # get loss cut value at max mjj accepted
         # add additional overflow layer
         self.model.add( Dense(1,activation=self.regression_overflow_cut) )
+        
+    def load( self, path ):
+        self.model = load_model( path, , custom_objects={'regression_overflow_cut':regression_overflow_cut})
                                        
