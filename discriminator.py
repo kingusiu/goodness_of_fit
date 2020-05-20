@@ -1,4 +1,4 @@
-import selector as se
+import parameter as pa
 
 
 class Discriminator():
@@ -8,13 +8,6 @@ class Discriminator():
         self.quantile = quantile
         self.strategy = strategy
         self.selector_T = selector_T
-        
-        
-    @classmethod
-    def from_file( cls, path, quantile='q1', strategy='s5' ):
-        o = cls( quantile, strategy, None )
-        o.load_selector( path, quantile )
-        return o
         
         
     def train_selector( self, training_sample ):
@@ -27,10 +20,11 @@ class Discriminator():
         
     def save_selector( self, path ):
         self.selector.save( path )
-
-        
-    def load_selector( self, path, quantile ):
-        self.selector = Selector( quantile ).load( path )
+    
+    
+    def load_selector( self, path ):
+        self.selector = self.selector_T( self.quantile.val )
+        self.selector.load( path )
 
         
     def boost_sample( self, sample ):
@@ -43,4 +37,9 @@ class Discriminator():
         selection = self.selector.select_events( sample['mJJ'].values, sample['combiLoss'].values )
         sample.add_feature('sel', selection)
         
-        
+
+    def title( self ):
+        return self.selector.title() + ' ' + self.quantile.title_str
+    
+    
+    

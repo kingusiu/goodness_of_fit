@@ -5,7 +5,7 @@ import selector as sel
 Mjj_selection = 1100.
 
 
-class Parameter():
+class Parameter( object ):
     
     def __init__(self, val, title_str, path_str):
         self.val = val
@@ -23,17 +23,11 @@ class LossStrategy( Parameter ):
         return self.val( x )
 
     
-class Discriminator( Parameter ):
+class Selector_Param( Parameter ):
     
-    def __call__( self, *args ):
-        return self.val( *args )
+    def __call__( self, x ):
+        return self.val( x )
 
-
-discriminator_dict = { 'flat' : Discriminator( sel.FlatCutSelector, 'Flat Cut', 'flat_cut' ),
-                      'qr_over' : Discriminator( sel.QuantileRegressionOverflowBinSelector, 'QR overflow', 'QR_overflow'),
-                      'qr_full' : Discriminator( sel.QuantileRegressionSelector, 'QR full', 'QR_full'),
-                      'gbr' : Discriminator( sel.GradientBoostRegresssor, 'GBR', 'GBR' )
-                    }
 
     
 loss_strategy_dict = { 's1' : LossStrategy(lof.combine_loss_l1, 'L1 > LT', 'l1_loss'),
@@ -55,3 +49,8 @@ quantile_dict = {'q1': Quantile(1e-2, '1% quantile', 'qu_1pct'),
                   'q99': Quantile(0.99, '99% quantile', 'qu_99pct'),
                  }
 
+selector_dict = { 'flat' : Selector_Param( sel.FlatCutSelector, 'Flat Cut', 'flat_cut' ),
+                      'qr_over' : Selector_Param( sel.QuantileRegressionOverflowBinSelector, 'QR overflow', 'QR_overflow'),
+                      'qr_full' : Selector_Param( sel.QuantileRegressionSelector, 'QR full', 'QR_full'),
+                      'gbr' : Selector_Param( sel.GradientBoostRegresssor, 'GBR', 'GBR' )
+                    }

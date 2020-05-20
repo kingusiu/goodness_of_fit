@@ -17,15 +17,20 @@ class Selector( ):
     def save( self, path ):
         self.model.save( path )
         
+    @abstractmethod
     def load( self, path ):
-        self.model.load_model( path )
-        
+        pass
+    
     @abstractmethod
     def fit( self, *args ):
         pass
     
     @abstractmethod
     def select_events( self, *args ):
+        pass
+    
+    @abstractmethod
+    def title( self ):
         pass
     
 
@@ -39,8 +44,15 @@ class QuantileRegressionSelector( Selector ):
     def select_events( self, *args ):
         x, y = args
         return self.model.select_events( x, y )
+    
+    def load( self, path ):
+        self.model = qr.Quantile_Regression( self.quantile )
+        self.model.load( path )
         
+    def title( self ):
+        return 'QR full'
 
+    
 class QuantileRegressionOverflowBinSelector( Selector ):
    
     def fit( self, *args ):
@@ -51,6 +63,13 @@ class QuantileRegressionOverflowBinSelector( Selector ):
     def select_events( self, *args ):
         x, y = args
         return self.model.select_events( x, y )
+    
+    def load( self, path ):
+        self.model = qr.Quantile_Regression_Overflow_Bin( self.quantile )
+        self.model.load( path )
+
+    def title( self ):
+        return 'QR overflow'
 
     
 class FlatCutSelector( Selector ):
@@ -71,7 +90,9 @@ class FlatCutSelector( Selector ):
         print('load not implemented for flat cut')
         # todo: read cut value from file?
         
-        
+    def title( self ):
+        return 'Flat cut'
+
         
 class GradientBoostRegresssor( Selector ):
     
@@ -93,7 +114,9 @@ class GradientBoostRegresssor( Selector ):
     def load( self, path ):
         self.model = jl.load( path )
         
-        
+    def title( self ):
+        return 'GBR'
+
     
     #### utility functions ####
 
