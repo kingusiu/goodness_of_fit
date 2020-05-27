@@ -1,3 +1,4 @@
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.colors as colors
@@ -12,8 +13,11 @@ rt.PyConfig.IgnoreCommandLineOptions = True
 rt.gROOT.SetBatch()
 
 from histo_utilities import create_TH2D, create_TH1D, create_Canvas, make_effiency_plot, rootTH1_to_np
-from cebefo_style import cebefo_style
-cebefo_style()
+#from cebefo_style import cebefo_style
+#cebefo_style()
+
+from cycler import cycler
+mpl.rcParams['axes.prop_cycle'] = cycler(color='brgcmyk')
 
 
 def plot_qr_2d_hist( qcd_data, loss, model, quantile, strategy, max_acc_mjj=None, regr_cut=True, plot_name='qr_2d_hist', fig_dir=None ):
@@ -167,3 +171,4 @@ def plot_accepted_vs_rejected_hist(data_sample, fig_dir=None):
     xx = [data_sample['mJJ'], accepted, rejected]
     [h_t, h_a, h_r], _ = \
         pu.plot_hist( xx, xlabel='M_jj', bins=100, title='event selection ' + data_sample.title(), fig_dir=fig_dir, plot_name=data_sample.plot_name()+'_event_selection', legend=['total','accepted','rejected'], normed=False)
+        

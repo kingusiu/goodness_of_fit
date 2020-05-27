@@ -45,6 +45,10 @@ def read_dijet_features( input_path ):
     else:
         return read_data_from_dir( input_path, 'eventFeatures','eventFeatureNames' )
     
+def read_dijet_features_to_dataframe( input_path ):
+    data, labels = read_dijet_features( input_path )
+    return pd.DataFrame( data, columns=labels )
+    
     
 def read_dijet_features_to_recarray( input_path ):
     data, labels = read_dijet_features( input_path )
@@ -124,9 +128,9 @@ def read_data_from_dir( dir_path, datakey, labelkey, mjj_cut=True ):
     return [ np.asarray(data), labels ] 
 
 
-def read_dijet_events_and_features_from_dir( dir_path ):
+def read_dijet_events_and_features_from_dir( dir_path, max_num_evts=int(1.2e6) ):
     print('reading', dir_path)
-    maxEvts = int(1.2e6)
+    maxEvts = max_num_evts
     pb = ProgressBar(maxEvts)
 
     constituents_concat = []

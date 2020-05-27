@@ -67,7 +67,18 @@ sample_label = {'qcdSide' : r'QCD side',
              'GtoWW45br':r'$G(4.5 TeV)\to WW$ broad',
              'AtoHZ':r'$A \to HZ \to ZZZ$',
              'GtoTTBroad':r'$G \to TT broad$',
-             'GtoTTNarr':r'$G \to TT narrow$'
+             'GtoTTNarr':r'$G \to TT narrow$',
+             'qcdSide_old' : 'QCD side old',
+             'qcdSide_new' : 'QCD side new',
+             'GtoTTbr_old' : r'$G \to TT$ broad old',
+             'GtoTTna_old' : r'$G \to TT$ narrow old',
+             'GtoWW25na_old' : r'$G(2.5 TeV)\to WW$ narrow old',
+             'GtoWW15na_new' : r'$G(1.5 TeV)\to WW$ narrow new',
+             'GtoWW25na_new' : r'$G(2.5 TeV)\to WW$ narrow new',
+             'GtoWW30na_new' : r'$G(3.0 TeV)\to WW$ narrow new',
+             'GtoWW45na_new' : r'$G(4.5 TeV)\to WW$ narrow new',
+             'GtoWW15br_new' : r'$G(1.5 TeV)\to WW$ broad new',
+             'GtoWW25br_new' : r'$G(2.5 TeV)\to WW$ broad new'
             }
 
 plt_name = {'qcdSide' : r'qcd_side',

@@ -5,15 +5,15 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from cycler import cycler
-mpl.rcParams['axes.prop_cycle'] = cycler(color='brgcmyk')
+#mpl.rcParams['axes.prop_cycle'] = cycler(color='brgcmyk')
 
 
-def plot_hist( data, bins=100, xlabel='x', ylabel='num frac', title='histogram', plot_name='', fig_dir=None, legend=[], ylogscale=True, normed=True, ylim=None ):
+def plot_hist( data, bins=100, xlabel='x', ylabel='num frac', title='histogram', plot_name='', fig_dir=None, legend=[], ylogscale=True, normed=True, ylim=None, legend_loc='best' ):
     fig = plt.figure( figsize=(6,4) )
     counts, edges = plot_hist_on_axis( plt.gca(), data, bins, xlabel, ylabel, title, legend, ylogscale, normed, ylim )
     plt.xticks(fontsize=14)
     if legend:
-        plt.legend(loc='best',prop={'size': 13})
+        plt.legend(loc=legend_loc,prop={'size': 13})
     plt.tight_layout()
     if fig_dir:
         fig.savefig(os.path.join( fig_dir, plot_name + '_hist.png'))
